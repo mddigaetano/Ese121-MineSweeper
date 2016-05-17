@@ -16,6 +16,8 @@
  */
 package MineSweeper;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -23,5 +25,22 @@ import javax.swing.JButton;
  * @author Amedeo
  */
 public class Casella extends JButton{
+    
+    public final static ImageIcon FLAG_ICON = new ImageIcon(new ImageIcon("./images/bomb.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)); //impostare dimensioni
+    public final static ImageIcon BOMB_ICON = new ImageIcon(new ImageIcon("./images/flag.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+    
+    private int value;
+
+    public Casella(int value) {
+        this.value = value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
     
 }
