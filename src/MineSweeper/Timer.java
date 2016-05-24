@@ -16,10 +16,51 @@
  */
 package MineSweeper;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Amedeo
  */
-public class Timer extends Thread{
+public class Timer extends JPanel implements Runnable{
+    
+    private final JLabel mines;
+    private int currentMines;
+    
+    private final JLabel timer;
+    private int currentTime;
+    
+    public Timer(int nMines){
+        currentMines = nMines;
+        mines = new JLabel("Mine: "+nMines);
+        
+        currentTime = 0;
+        timer = new JLabel("Tempo: "+currentTime);
+    }
+    
+    public void decreaseMines(boolean choice){
+        if(choice)
+            currentMines--;
+        else
+            currentMines++;
+        
+        mines.setText("Mine: "+currentMines);
+    }
+
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException ex) {
+            Logger.getLogger(Timer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        timer.setText("Tempo: "+(++currentTime));
+        
+    }
     
 }
