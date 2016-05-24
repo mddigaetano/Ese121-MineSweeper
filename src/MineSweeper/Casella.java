@@ -29,10 +29,13 @@ public class Casella extends JButton{
     public final static ImageIcon FLAG_ICON = new ImageIcon(new ImageIcon("./images/bomb.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)); //impostare dimensioni
     public final static ImageIcon BOMB_ICON = new ImageIcon(new ImageIcon("./images/flag.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
     
+    private int r,c;
     private int value;
 
-    public Casella(int value) {
+    public Casella(int value,int r,int c) {
         this.value = value;
+        this.r = r;
+        this.c = c;
     }
 
     public void setValue(int value) {
@@ -41,6 +44,14 @@ public class Casella extends JButton{
 
     public int getValue() {
         return value;
+    }
+    
+    public int getRow(){
+        return this.r;
+    }
+    
+    public int getColumn(){
+        return this.c;
     }
     
 }
