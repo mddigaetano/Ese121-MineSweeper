@@ -32,11 +32,12 @@ public class Casella extends JButton{
     private int r,c;
     private int value;
 
-    public Casella(int value,int r,int c) {
-        this.value = value;
+    public Casella(int r, int c, int value) {
         this.r = r;
         this.c = c;
+        this.value = value;
     }
+    
 
     public void setValue(int value) {
         this.value = value;
@@ -45,7 +46,6 @@ public class Casella extends JButton{
     public int getValue() {
         return value;
     }
-    
     public int getRow(){
         return this.r;
     }
