@@ -26,16 +26,17 @@ import javax.swing.JButton;
  */
 public class Casella extends JButton{
     
-    public final static ImageIcon FLAG_ICON = new ImageIcon(new ImageIcon("./images/bomb.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)); //impostare dimensioni
-    public final static ImageIcon BOMB_ICON = new ImageIcon(new ImageIcon("./images/flag.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+    public final static ImageIcon BOMB_ICON = new ImageIcon(new ImageIcon("./images/bomb.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)); //impostare dimensioni
+    public final static ImageIcon FLAG_ICON = new ImageIcon(new ImageIcon("./images/flag.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
     
-    private int r,c;
+    private final int r,c;
     private int value;
 
     public Casella(int r, int c, int value) {
         this.r = r;
         this.c = c;
         this.value = value;
+        this.addActionListener(new Main());
     }
     
 
@@ -52,6 +53,34 @@ public class Casella extends JButton{
     
     public int getColumn(){
         return this.c;
+    }
+    
+    public void svuota(){
+        
+        for(int i = -1; i <= 1; i++){
+            for(int j = -1; j <= 1; j++){
+                if(!(i == 0 && j == 0) && Finestra.buttons[r+i][c+j] != null && Finestra.buttons[r+i][c+j].isEnabled()){
+                    Finestra.buttons[r+i][c+j].mostra();
+                }
+            }
+        }
+        
+    }
+    
+    public void mostra(){
+        
+//        this.setEnabled(false);
+        
+        if(this.value > 0)
+            this.setText(value+"");
+        else if(this.value == -1)
+            this.setIcon(BOMB_ICON);
+        else if(this.value == 0){
+            this.setEnabled(false);
+            this.svuota();
+        }
+        
+        this.setEnabled(false);
     }
     
 }

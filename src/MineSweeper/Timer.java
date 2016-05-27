@@ -39,6 +39,9 @@ public class Timer extends JPanel implements Runnable{
         
         currentTime = 0;
         timer = new JLabel("Tempo: "+currentTime);
+        
+        this.add(mines);
+        this.add(timer);
     }
     
     public void decreaseMines(boolean choice){
@@ -52,15 +55,16 @@ public class Timer extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(1000);
+        while(currentTime < 99999){
+            try {
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException ex) {
+                Logger.getLogger(Timer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            timer.setText("Tempo: "+(++currentTime));
         }
-        catch (InterruptedException ex) {
-            Logger.getLogger(Timer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        timer.setText("Tempo: "+(++currentTime));
-        
     }
     
 }

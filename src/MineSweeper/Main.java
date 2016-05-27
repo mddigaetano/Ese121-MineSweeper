@@ -39,7 +39,8 @@ public class Main implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        Casella clicked = (Casella)(e.getSource());
+        clicked.mostra();
     }
 
 }

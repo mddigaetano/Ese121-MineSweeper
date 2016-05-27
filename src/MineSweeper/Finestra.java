@@ -26,27 +26,28 @@ import javax.swing.*;
  */
 public class Finestra extends JFrame {
 
-    Casella[][] buttons;
-    JPanel panel;
-    int nMine;
+    static Casella[][] buttons;
+    private JPanel panel;
+    private int nMines;
 
     public Finestra(int dim, int prob) {
         this.setLayout(new BorderLayout());
         panel = new JPanel(new GridLayout(dim, dim));
-        buttons = new Casella[dim][dim];
+        buttons = new Casella[dim+2][dim+2];
         int fittizia[][] = this.creaMatriceFittizia(dim, prob);
         //Popolamento della matrice di buttoni
-        for(int i = 0; i < dim; i++)
-            for(int j = 0; j < dim; j++){
+        for(int i = 1; i <= dim; i++)
+            for(int j = 1; j <= dim; j++){
                 buttons[i][j] = new Casella(i, j, fittizia[i][j]);
-//                buttons[i][j].setText(buttons[i][j].getValue()+"");  DEBUG
+//                buttons[i][j].setText(buttons[i][j].getValue()+"");  //DEBUG
                 this.panel.add(buttons[i][j]);
             }
         
-//            Timer t = new Timer(nMine);
-//            Thread t1 = new Thread(t);
-//            t1.start();
-//            this.add(t,"North");
+        Timer t = new Timer(nMines);
+        Thread t1 = new Thread(t);
+        t1.start();
+        
+        this.add(t,"North");
         this.add(panel, "Center");
 
     }
@@ -54,7 +55,6 @@ public class Finestra extends JFrame {
     private int[][] creaMatriceFittizia(int DIM, int prob){
         
         int matrix[][] = new int[DIM+2][DIM+2];
-        int ultimate[][] = new int[DIM][DIM];
         
         Random rnd = new Random();
         
@@ -67,7 +67,7 @@ public class Finestra extends JFrame {
                     //Impostiamo il suo valore a -1 (bomba)
                     matrix[i][j] = -1;
                     //Incremento il numero di mine generate
-                    nMine++;
+                    nMines++;
                     
                     for(int r = -1; r <= 1; r++){
                         for(int c = -1; c <= 1; c++){
@@ -79,14 +79,8 @@ public class Finestra extends JFrame {
                 } 
             }
         }
-        
-        for(int i = 1; i <= DIM; i++){
-            for(int j = 1; j <= DIM; j++){
-                ultimate[i-1][j-1] = matrix[i][j];
-            }
-        }
-        
-        return ultimate;
+                
+        return matrix;
     }
 
 }
