@@ -27,10 +27,13 @@ import javax.swing.*;
 public class Finestra extends JFrame {
 
     static Casella[][] buttons;
-    private JPanel panel;
-    private int nMines;
+    private final JPanel panel;
+    static int nMines = 0;
+    private static int dimensions;
 
     public Finestra(int dim, int prob) {
+        
+        dimensions = dim;
         this.setLayout(new BorderLayout());
         panel = new JPanel(new GridLayout(dim, dim));
         buttons = new Casella[dim+2][dim+2];
@@ -43,7 +46,7 @@ public class Finestra extends JFrame {
                 this.panel.add(buttons[i][j]);
             }
         
-        Timer t = new Timer(nMines);
+        Timer t = new Timer();
         Thread t1 = new Thread(t);
         t1.start();
         
@@ -83,4 +86,15 @@ public class Finestra extends JFrame {
         return matrix;
     }
 
+    public static void gameOver(){
+        for(int i = 1; i <= dimensions; i++)
+            for(int j = 1; j <= dimensions; j++)
+                if(buttons[i][j].isEnabled() && buttons[i][j].getValue() == -1)
+                    buttons[i][j].setIcon(Casella.BOMB_ICON);
+        
+        JOptionPane.showMessageDialog(null, "Game Over!", "GAME OVER", JOptionPane.ERROR_MESSAGE);
+        
+        System.exit(0);
+    }
+    
 }

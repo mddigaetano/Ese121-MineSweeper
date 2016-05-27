@@ -16,31 +16,30 @@
  */
 package MineSweeper;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Matteo
  */
-public class Main implements ActionListener {
+public class Main{
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        Finestra frame = new Finestra(6, 25);
+        Integer options[] = {1,2,3,4,5};
+        int diff = (int)JOptionPane.showInputDialog(null, "Scegli il livello di difficolta'", "Selezione Difficolta'", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        String input = (String)JOptionPane.showInputDialog(null, "Scegli la dimensione del campo di gioco'", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
+        int size = Integer.parseInt(input);
+        
+        
+        Finestra frame = new Finestra(size, diff*10);
         frame.setVisible(true);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Casella clicked = (Casella)(e.getSource());
-        clicked.mostra();
     }
 
 }

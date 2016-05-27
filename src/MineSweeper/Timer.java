@@ -27,15 +27,13 @@ import javax.swing.JPanel;
  */
 public class Timer extends JPanel implements Runnable{
     
-    private final JLabel mines;
-    private int currentMines;
+    private static JLabel mines;
     
     private final JLabel timer;
     private int currentTime;
     
-    public Timer(int nMines){
-        currentMines = nMines;
-        mines = new JLabel("Mine: "+nMines);
+    public Timer(){
+        mines = new JLabel("Mine: "+Finestra.nMines);
         
         currentTime = 0;
         timer = new JLabel("Tempo: "+currentTime);
@@ -44,13 +42,13 @@ public class Timer extends JPanel implements Runnable{
         this.add(timer);
     }
     
-    public void decreaseMines(boolean choice){
+    public static void decreaseMines(boolean choice){
         if(choice)
-            currentMines--;
+            Finestra.nMines--;
         else
-            currentMines++;
+            Finestra.nMines++;
         
-        mines.setText("Mine: "+currentMines);
+        mines.setText("Mine: "+Finestra.nMines);
     }
 
     @Override
