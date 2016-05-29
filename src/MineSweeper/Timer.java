@@ -19,6 +19,7 @@ package MineSweeper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -49,6 +50,11 @@ public class Timer extends JPanel implements Runnable{
             Finestra.nMines++;
         
         mines.setText("Mine: "+Finestra.nMines);
+        
+        if(Finestra.nMines == 0 && Finestra.gameWin()){
+            JOptionPane.showMessageDialog(null, "Hai Vinto!!!", "Congratulazioni!", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
     }
 
     @Override

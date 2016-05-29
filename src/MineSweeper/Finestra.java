@@ -97,4 +97,18 @@ public class Finestra extends JFrame {
         System.exit(0);
     }
     
+    public static boolean gameWin(){
+        
+        boolean flag = true;
+        
+        for(int i = 1; i <= dimensions && flag; i++){
+            for(int j = 1; j <= dimensions && flag; j++){
+                if(buttons[i][j].isEnabled() && (((buttons[i][j].getValue() == -1) && buttons[i][j].getIcon() != Casella.FLAG_ICON) || ((buttons[i][j].getValue() != -1) && (buttons[i][j].getIcon() == Casella.FLAG_ICON))) && flag){
+                    flag = false;
+                }
+            }
+        }
+        
+        return flag;
+    }
 }
