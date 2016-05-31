@@ -16,8 +16,6 @@
  */
 package MineSweeper;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -51,20 +49,20 @@ public class Timer extends JPanel implements Runnable{
         
         mines.setText("Mine: "+Finestra.nMines);
         
-        if(Finestra.nMines == 0 && Finestra.gameWin()){
+        if(Finestra.nMines == 0 && Finestra.gameWin()){                         //se non rimangono mine controlla condizioni vittoria
             JOptionPane.showMessageDialog(null, "Hai Vinto!!!", "Congratulazioni!", JOptionPane.INFORMATION_MESSAGE);
-            System.exit(0);
+            System.exit(0);                                                     //FINE!!!
         }
     }
 
     @Override
     public void run() {
-        while(currentTime < 99999){
+        while(currentTime < 99999){                                             //limite massimo di conteggio del tempo
             try {
                 Thread.sleep(1000);
             }
             catch (InterruptedException ex) {
-                Logger.getLogger(Timer.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("an Error occurred while sleeping");
             }
 
             timer.setText("Tempo: "+(++currentTime));
