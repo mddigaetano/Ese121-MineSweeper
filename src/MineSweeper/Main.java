@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author Matteo
  */
-public class Main{
+public class Main {
 
     /**
      * @param args the command line arguments
@@ -31,26 +31,29 @@ public class Main{
     public static void main(String[] args) {
 
         int diff, rows, columns;                                                //variabili temporanee per memorizzare i valori immessi da utente
-        
-        Integer options[] = {1,2,3,4,5};
-        diff = (int)JOptionPane.showInputDialog(null, "Scegli il livello di difficolta'", "Selezione Difficolta'", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        
-        String input = (String)JOptionPane.showInputDialog(null, "Scegli le righe del campo di gioco (default: 8)", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
-            try{                                                                //se non viene riconosciuto un numero
-                rows = Integer.parseInt(input);
-            }catch(Exception e){
-                rows = 8;                                                       //imposta il valore di default
-            }
-        
-        input = (String)JOptionPane.showInputDialog(null, "Scegli le colonne del campo di gioco (default: 8)", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
-            try{                                                                //se non viene riconosciuto un numero
-                columns = Integer.parseInt(input);
-            }catch(Exception e){
-                columns = 8;                                                    //imposta il valore di default
-            }
-        
-        
-        Finestra frame = new Finestra(rows, columns, diff*10);                  //la variabile diff viene moltiplicata per trasformare il valore simbolico in percentuale
+
+        Integer options[] = {1, 2, 3, 4, 5};
+        diff = (int) JOptionPane.showOptionDialog(null, "Scegli il livello di difficolta' (default: 1)", "Selezione Difficolta'", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        if (diff < 1 || diff > 5) //se l'opzione non è prevista
+        {
+            diff = 1;                                                           //imposta il valore di default
+        }
+        String input = (String) JOptionPane.showInputDialog(null, "Scegli le righe del campo di gioco (default: 8)", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
+        try {                                                                   //se non viene riconosciuto un numero
+            rows = Integer.parseInt(input);
+        } catch (Exception e) {
+            rows = 8;                                                           //imposta il valore di default
+        }
+
+        input = (String) JOptionPane.showInputDialog(null, "Scegli le colonne del campo di gioco (default: 8)", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
+        try {                                                                   //se non viene riconosciuto un numero
+            columns = Integer.parseInt(input);
+        } catch (Exception e) {
+            columns = 8;                                                        //imposta il valore di default
+        }
+
+        Finestra frame = new Finestra(rows, columns, diff * 10);                //la variabile diff viene moltiplicata per trasformare il valore simbolico in percentuale
         frame.setVisible(true);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

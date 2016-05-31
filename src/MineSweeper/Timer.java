@@ -24,32 +24,33 @@ import javax.swing.JPanel;
  *
  * @author Amedeo
  */
-public class Timer extends JPanel implements Runnable{
-    
+public class Timer extends JPanel implements Runnable {
+
     private static JLabel mines;
-    
+
     private final JLabel timer;
     private int currentTime;
-    
-    public Timer(){
-        mines = new JLabel("Mine: "+Finestra.nMines);
-        
+
+    public Timer() {
+        mines = new JLabel("Mine: " + Finestra.nMines);
+
         currentTime = 0;
-        timer = new JLabel("Tempo: "+currentTime);
-        
+        timer = new JLabel("Tempo: " + currentTime);
+
         this.add(mines);
         this.add(timer);
     }
-    
-    public static void decreaseMines(boolean choice){
-        if(choice)
+
+    public static void decreaseMines(boolean choice) {
+        if (choice) {
             Finestra.nMines--;
-        else
+        } else {
             Finestra.nMines++;
-        
-        mines.setText("Mine: "+Finestra.nMines);
-        
-        if(Finestra.nMines == 0 && Finestra.gameWin()){                         //se non rimangono mine controlla condizioni vittoria
+        }
+
+        mines.setText("Mine: " + Finestra.nMines);
+
+        if (Finestra.nMines == 0 && Finestra.gameWin()) {                         //se non rimangono mine controlla condizioni vittoria
             JOptionPane.showMessageDialog(null, "Hai Vinto!!!", "Congratulazioni!", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);                                                     //FINE!!!
         }
@@ -57,16 +58,15 @@ public class Timer extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        while(currentTime < 99999){                                             //limite massimo di conteggio del tempo
+        while (currentTime < 99999) {                                             //limite massimo di conteggio del tempo
             try {
                 Thread.sleep(1000);
-            }
-            catch (InterruptedException ex) {
+            } catch (InterruptedException ex) {
                 System.out.println("an Error occurred while sleeping");
             }
 
-            timer.setText("Tempo: "+(++currentTime));
+            timer.setText("Tempo: " + (++currentTime));
         }
     }
-    
+
 }

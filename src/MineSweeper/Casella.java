@@ -36,19 +36,19 @@ public class Casella extends JButton {
     public final static int SIZE = 40;
 
     private final int r, c;
-    private final int value;                                                    
+    private final int value;
 
     public Casella(int r, int c, int value) {
         this.r = r;
         this.c = c;
         this.value = value;
-        
+
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Casella clicked = (Casella) e.getSource();
 
-                if (e.getButton() == MouseEvent.BUTTON3 && clicked.isEnabled()) {   //se viene cliccato con il tasto destro ed è abilitato
+                if (e.getButton() == MouseEvent.BUTTON3 && clicked.isEnabled()) { //se viene cliccato con il tasto destro ed è abilitato
                     if (clicked.getIcon() == Casella.FLAG_ICON) {               //se già marcato
                         clicked.setIcon(null);                                  //niente immagine
                         Timer.decreaseMines(false);
@@ -61,7 +61,7 @@ public class Casella extends JButton {
                 }
             }
         });
-        
+
         this.setPreferredSize(new Dimension(SIZE, SIZE));
         this.setFont(new Font(Font.MONOSPACED, Font.BOLD, 10));                 //impostazione font (di default è troppo grande)
     }
@@ -74,7 +74,7 @@ public class Casella extends JButton {
         //scorro celle intorno
         for (int i = -1; i <= 1; i++) {                                         //dall'alto al basso
             for (int j = -1; j <= 1; j++) {                                     //da destra a sinistra
-                if (Finestra.buttons[r + i][c + j].isEnabled() && !(i == 0 && j == 0) && Finestra.buttons[r + i][c + j] != null) {//se abilitata, diversa da sé ed esiste
+                if (Finestra.buttons[r + i][c + j] != null && Finestra.buttons[r + i][c + j].isEnabled() && !(i == 0 && j == 0)) {//se abilitata, diversa da sé ed esiste; ATTENZIONE!!! NON INVERTIRE OPERANDI! CONTROLLO null SEMPRE PER PRIMO!!!
                     Finestra.buttons[r + i][c + j].mostra();                    //WARN! Ricorsione dentro funzione (svuota, mostra, svuota...)
                 }
             }
@@ -85,7 +85,7 @@ public class Casella extends JButton {
     public void mostra() {
 
         this.setEnabled(false);
-        
+
         if (this.value > 0) {
             this.setText(value + "");
         } else if (this.value == Casella.BOMB) {
