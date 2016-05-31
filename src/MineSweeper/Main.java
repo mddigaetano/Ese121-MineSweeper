@@ -32,11 +32,12 @@ public class Main{
 
         Integer options[] = {1,2,3,4,5};
         int diff = (int)JOptionPane.showInputDialog(null, "Scegli il livello di difficolta'", "Selezione Difficolta'", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        String input = (String)JOptionPane.showInputDialog(null, "Scegli la dimensione del campo di gioco'", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
-        int size = Integer.parseInt(input);
+        String input = (String)JOptionPane.showInputDialog(null, "Scegli le righe del campo di gioco", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
+        int rows = Integer.parseInt(input);
+        input = (String)JOptionPane.showInputDialog(null, "Scegli le colonne del campo di gioco", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
+        int columns = Integer.parseInt(input);
         
-        
-        Finestra frame = new Finestra(size, diff*10);
+        Finestra frame = new Finestra(rows, columns, diff*10);
         frame.setVisible(true);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
