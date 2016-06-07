@@ -16,51 +16,57 @@
  */
 package MineSweeper;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Amedeo
  */
-public class Timer extends JPanel implements Runnable{
-    
-    private final JLabel mines;
-    private int currentMines;
-    
+public class Timer extends JPanel implements Runnable {
+
+    private static JLabel mines;
+
     private final JLabel timer;
     private int currentTime;
-    
-    public Timer(int nMines){
-        currentMines = nMines;
-        mines = new JLabel("Mine: "+nMines);
-        
+
+    public Timer() {
+        mines = new JLabel("Mine: " + Finestra.nMines);
+
         currentTime = 0;
-        timer = new JLabel("Tempo: "+currentTime);
+        timer = new JLabel("Tempo: " + currentTime);
+
+        this.add(mines);
+        this.add(timer);
     }
-    
-    public void decreaseMines(boolean choice){
-        if(choice)
-            currentMines--;
-        else
-            currentMines++;
-        
-        mines.setText("Mine: "+currentMines);
+
+    public static void decreaseMines(boolean choice) {
+        if (choice) {
+            Finestra.nMines--;
+        } else {
+            Finestra.nMines++;
+        }
+
+        mines.setText("Mine: " + Finestra.nMines);
+
+        if (Finestra.nMines == 0 && Finestra.gameWin()) {                         //se non rimangono mine controlla condizioni vittoria
+            JOptionPane.showMessageDialog(null, "Hai Vinto!!!", "Congratulazioni!", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);                                                     //FINE!!!
+        }
     }
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(1000);
+        while (currentTime < 99999) {                                             //limite massimo di conteggio del tempo
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                System.out.println("an Error occurred while sleeping");
+            }
+
+            timer.setText("Tempo: " + (++currentTime));
         }
-        catch (InterruptedException ex) {
-            Logger.getLogger(Timer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        timer.setText("Tempo: "+(++currentTime));
-        
     }
-    
+
 }

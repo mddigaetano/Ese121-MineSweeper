@@ -16,12 +16,120 @@
  */
 package MineSweeper;
 
-import javax.swing.JFrame;
+import java.awt.*;
+import java.util.Random;
+import javax.swing.*;
 
 /**
  *
- * @author Amedeo
+ * @author Matteo
  */
-public class Finestra extends JFrame{
-    
+public class Finestra extends JFrame {
+
+    static Casella[][] buttons;
+    private final JPanel panel;
+    static int nMines = 0;
+    private static int ROWS;
+    private static int COLUMNS;
+
+    public Finestra(int rows, int columns, int prob) {
+
+        ROWS = rows;
+        COLUMNS = columns;
+
+        this.setLayout(new BorderLayout());
+
+        panel = new JPanel(new GridLayout(ROWS, COLUMNS));
+
+        buttons = new Casella[ROWS + 2][COLUMNS + 2];
+        int fittizia[][] = this.creaMatriceFittizia(ROWS, COLUMNS, prob);
+
+        //Popolamento della matrice di buttoni
+        for (int i = 1; i <= ROWS; i++) //sostituzione escludendo i bordi
+        {
+            for (int j = 1; j <= COLUMNS; j++) {
+                buttons[i][j] = new Casella(i, j, fittizia[i][j]);
+//                buttons[i][j].setText(buttons[i][j].getValue()+"");  //DEBUG
+                this.panel.add(buttons[i][j]);
+            }
+        }
+
+        Timer t = new Timer();
+        Thread t1 = new Thread(t);
+        t1.start();
+
+        this.add(t, "North");
+        this.add(panel, "Center");
+
+    }
+
+    private int[][] creaMatriceFittizia(int DIMY, int DIMX, int prob) {
+        //viene inizializzata automaticamente a 0
+        int matrix[][] = new int[DIMY + 2][DIMX + 2];                           //+2 per creare bordo. Permette di non strabordare
+
+        Random rnd = new Random();
+
+        for (int i = 1; i <= DIMY; i++) {
+            for (int j = 1; j <= DIMX; j++) {
+                //Generazione numero random da 1 a 100 
+                //E confronto con la probabilità inserita dall'utente                
+                if (rnd.nextInt(100) + 1 <= prob) {                             //rnd da 1 a 100
+                    //Se il numero generato è minore del valore prob (probabilità inserita dall'utente)
+                    //Impostiamo il suo valore a -1 (bomba)
+                    matrix[i][j] = Casella.BOMB;
+                    //Incremento il numero di mine generate
+                    nMines++;
+                    //scorro celle intorno
+                    for (int r = -1; r <= 1; r++) {                             //dall'alto al basso
+                        for (int c = -1; c <= 1; c++) {                         //da destra a sinistra
+                            if ((matrix[i + r][j + c] != Casella.BOMB) && !(r == 0 && c == 0)) {  //se non è né una bomba né se stesso
+                                matrix[i + r][j + c] += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if(nMines == 0){
+            matrix[rnd.nextInt(DIMY)+1][rnd.nextInt(DIMX)+1] = -1;
+        }
+
+        return matrix;
+    }
+
+    public static void gameOver() {
+        for (int i = 1; i <= ROWS; i++) {
+            for (int j = 1; j <= COLUMNS; j++) {
+                if (buttons[i][j].isEnabled() && buttons[i][j].getValue() == Casella.BOMB) {
+                    buttons[i][j].setIcon(Casella.BOMB_ICON);                   //mostra tutte le bombe nel gioco
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Game Over!", "GAME OVER", JOptionPane.ERROR_MESSAGE);
+
+        System.exit(0);                                                         //FINE!!!
+    }
+
+    public static boolean gameWin() {
+
+        boolean flag = true;
+
+        for (int i = 1; i <= ROWS && flag; i++) {
+            for (int j = 1; j <= COLUMNS && flag; j++) {
+                /*
+                 Le condizioni da controllare sono:
+                 1)se la casella è abilitata;
+                 2)se c'è una bomba non marcata;
+                 3)se è marcata una caselle normale;
+                 4)se non è già stata sfatata una condizione precedente
+                 */
+                if (buttons[i][j].isEnabled() && (((buttons[i][j].getValue() == Casella.BOMB) && buttons[i][j].getIcon() != Casella.FLAG_ICON) || ((buttons[i][j].getValue() != Casella.BOMB) && (buttons[i][j].getIcon() == Casella.FLAG_ICON))) && flag) {
+                    flag = false;
+                }
+            }
+        }
+
+        return flag;
+    }
 }
