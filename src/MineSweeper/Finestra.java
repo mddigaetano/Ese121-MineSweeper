@@ -90,6 +90,10 @@ public class Finestra extends JFrame {
                 }
             }
         }
+        
+        if(nMines == 0){
+            matrix[rnd.nextInt(DIMY)+1][rnd.nextInt(DIMX)+1] = -1;
+        }
 
         return matrix;
     }

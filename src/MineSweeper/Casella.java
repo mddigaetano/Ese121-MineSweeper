@@ -83,18 +83,19 @@ public class Casella extends JButton {
     }
 
     public void mostra() {
+        
+        if(this.isEnabled()){
+            this.setEnabled(false);
 
-        this.setEnabled(false);
-
-        if (this.value > 0) {
-            this.setText(value + "");
-        } else if (this.value == Casella.BOMB) {
-            this.setIcon(BOMB_ICON);
-            Finestra.gameOver();
-        } else if (this.value == 0) {
-            this.svuota();                                                      //WARN! Ricorsione dentro funzione (mostra, svuota, mostra...)
+            if (this.value > 0) {
+                this.setText(value + "");
+            } else if (this.value == Casella.BOMB) {
+                this.setIcon(BOMB_ICON);
+                Finestra.gameOver();
+            } else if (this.value == 0) {
+                this.svuota();                                                  //WARN! Ricorsione dentro funzione (mostra, svuota, mostra...)
+            }
         }
-
     }
 
 }

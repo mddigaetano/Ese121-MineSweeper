@@ -41,14 +41,14 @@ public class Main {
         }
         String input = (String) JOptionPane.showInputDialog(null, "Scegli le righe del campo di gioco (default: 8)", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
         try {                                                                   //se non viene riconosciuto un numero
-            rows = Integer.parseInt(input);
+            rows = Short.toUnsignedInt(Short.parseShort(input));
         } catch (Exception e) {
             rows = 8;                                                           //imposta il valore di default
         }
 
         input = (String) JOptionPane.showInputDialog(null, "Scegli le colonne del campo di gioco (default: 8)", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
         try {                                                                   //se non viene riconosciuto un numero
-            columns = Integer.parseInt(input);
+            columns = Short.toUnsignedInt(Short.parseShort(input));
         } catch (Exception e) {
             columns = 8;                                                        //imposta il valore di default
         }
