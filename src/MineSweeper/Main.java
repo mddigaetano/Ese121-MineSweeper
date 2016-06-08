@@ -33,22 +33,53 @@ public class Main {
         int diff, rows, columns;                                                //variabili temporanee per memorizzare i valori immessi da utente
 
         Integer options[] = {1, 2, 3, 4, 5};
-        diff = (int) JOptionPane.showOptionDialog(null, "Scegli il livello di difficolta' (default: 1)", "Selezione Difficolta'", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        diff = (int) JOptionPane.showOptionDialog(
+                null,
+                "Scegli il livello di difficolta' (default: 1)",
+                "Selezione Difficolta'",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
 
         if (diff < 1 || diff > 5) //se l'opzione non è prevista
         {
             diff = 1;                                                           //imposta il valore di default
         }
-        String input = (String) JOptionPane.showInputDialog(null, "Scegli le righe del campo di gioco (default: 8)", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
+
+        String input = (String) JOptionPane.showInputDialog(
+                null,
+                "Scegli le righe del campo di gioco (default: 8)",
+                "Selezione Dimensioni",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                null,
+                8);
         try {                                                                   //se non viene riconosciuto un numero
-            rows = Short.toUnsignedInt(Short.parseShort(input));
+            rows = Integer.parseInt(input);
+
+            if (rows < 3 || rows > 15) {
+                rows = 8;
+            }
         } catch (Exception e) {
             rows = 8;                                                           //imposta il valore di default
         }
 
-        input = (String) JOptionPane.showInputDialog(null, "Scegli le colonne del campo di gioco (default: 8)", "Selezione Dimensioni", JOptionPane.QUESTION_MESSAGE, null, null, 8);
+        input = (String) JOptionPane.showInputDialog(
+                null,
+                "Scegli le colonne del campo di gioco (default: 8)",
+                "Selezione Dimensioni",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                null,
+                8);
         try {                                                                   //se non viene riconosciuto un numero
-            columns = Short.toUnsignedInt(Short.parseShort(input));
+            columns = Integer.parseInt(input);
+
+            if (columns < 3 || columns > 34) {
+                columns = 8;
+            }
         } catch (Exception e) {
             columns = 8;                                                        //imposta il valore di default
         }
