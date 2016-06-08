@@ -50,7 +50,7 @@ public class Timer extends JPanel implements Runnable {
 
         mines.setText("Mine: " + Finestra.nMines);
 
-        if (Finestra.nMines == 0 && Finestra.gameWin()) {                         //se non rimangono mine controlla condizioni vittoria
+        if (Finestra.nMines == 0 && Finestra.gameWin()) {                       //se non rimangono mine controlla condizioni vittoria
             JOptionPane.showMessageDialog(null, "Hai Vinto!!!", "Congratulazioni!", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);                                                     //FINE!!!
         }
@@ -58,7 +58,7 @@ public class Timer extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        while (currentTime < 99999) {                                             //limite massimo di conteggio del tempo
+        while (currentTime < 99999) {                                           //limite massimo di conteggio del tempo
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {

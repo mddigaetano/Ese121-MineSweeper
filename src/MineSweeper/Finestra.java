@@ -69,32 +69,29 @@ public class Finestra extends JFrame {
 
         Random rnd = new Random();
 
-        for (int i = 1; i <= DIMY; i++) {
-            for (int j = 1; j <= DIMX; j++) {
-                //Generazione numero random da 1 a 100 
-                //E confronto con la probabilità inserita dall'utente                
-                if (rnd.nextInt(100) + 1 <= prob) {                             //rnd da 1 a 100
-                    //Se il numero generato è minore del valore prob (probabilità inserita dall'utente)
-                    //Impostiamo il suo valore a -1 (bomba)
-                    matrix[i][j] = Casella.BOMB;
-                    //Incremento il numero di mine generate
-                    nMines++;
-                    //scorro celle intorno
-                    for (int r = -1; r <= 1; r++) {                             //dall'alto al basso
-                        for (int c = -1; c <= 1; c++) {                         //da destra a sinistra
-                            if ((matrix[i + r][j + c] != Casella.BOMB) && !(r == 0 && c == 0)) {  //se non è né una bomba né se stesso
-                                matrix[i + r][j + c] += 1;
-                            }
+        nMines = DIMY * DIMX * prob / 100;                                      //il numero di mine è pari ad <prob>% di caselle del campo
+
+        for (int i = 0; i < nMines; i++) {
+            //inizializzazione coordinate casuali
+            int tempx = rnd.nextInt(DIMX) + 1;
+            int tempy = rnd.nextInt(DIMY) + 1;
+
+            //se non c'è già una bomba
+            if (matrix[tempy][tempx] != Casella.BOMB) {
+                matrix[tempy][tempx] = Casella.BOMB;
+
+                //calcolo valore caselle adiacenti
+                for (int r = -1; r <= 1; r++) {                                 //dall'alto al basso
+                    for (int c = -1; c <= 1; c++) {                             //da destra a sinistra
+                        if ((matrix[tempy + r][tempx + c] != Casella.BOMB) && !(r == 0 && c == 0)) {  //se non è né una bomba né se stesso
+                            matrix[tempy + r][tempx + c] += 1;
                         }
                     }
                 }
+            } else {                                                            //se nelle coordinate casuali c'è già una bomba
+                i--;                                                            //ripiazza bomba corrente
             }
         }
-        
-        if(nMines == 0){
-            matrix[rnd.nextInt(DIMY)+1][rnd.nextInt(DIMX)+1] = -1;
-        }
-
         return matrix;
     }
 
