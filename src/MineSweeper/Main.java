@@ -43,14 +43,15 @@ public class Main {
                 options,
                 options[0]);
 
-        if (diff < 1 || diff > 5) //se l'opzione non è prevista
+        if (diff < 0 || diff > 4) //se l'opzione non è prevista
         {
-            diff = 1;                                                           //imposta il valore di default
+            diff = 0;                                                           //imposta il valore di default
         }
 
         String input = (String) JOptionPane.showInputDialog(
                 null,
-                "Scegli le righe del campo di gioco (default: 8)",
+                "<html>Scegli le righe del campo di gioco<br>"
+                        + "(default: 8) (MIN: 3) (MAX: 17)</html>",
                 "Selezione Dimensioni",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -59,7 +60,7 @@ public class Main {
         try {                                                                   //se non viene riconosciuto un numero
             rows = Integer.parseInt(input);
 
-            if (rows < 3 || rows > 15) {
+            if (rows < 3 || rows > 17) {
                 rows = 8;
             }
         } catch (Exception e) {
@@ -68,7 +69,8 @@ public class Main {
 
         input = (String) JOptionPane.showInputDialog(
                 null,
-                "Scegli le colonne del campo di gioco (default: 8)",
+                "<html>Scegli le colonne del campo di gioco<br>"
+                        + "(default: 8) (MIN: 3) (MAX: 34)<html>",
                 "Selezione Dimensioni",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -84,7 +86,7 @@ public class Main {
             columns = 8;                                                        //imposta il valore di default
         }
 
-        Finestra frame = new Finestra(rows, columns, diff * 10);                //la variabile diff viene moltiplicata per trasformare il valore simbolico in percentuale
+        Finestra frame = new Finestra(rows, columns, (diff+1) * 10);                //la variabile diff viene moltiplicata per trasformare il valore simbolico in percentuale
         frame.setVisible(true);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
